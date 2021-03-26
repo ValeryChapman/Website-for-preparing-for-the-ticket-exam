@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        body::-webkit-scrollbar {
+            width: 0px;
+        }
+    </style>
+</head>
+
+<body class="container" style="overflow-x: hidden; overflow-y: scroll; padding-bottom: 25px;">
+    <table class="table table table-hover" style="margin-top: 25px;">
+        <thead style="text-align: center;">
+            <tr>
+                <th scope="col">Вариант</th>
+                <th scope="col">Ответов</th>
+                <th scope="col">К ответам</th>
+            </tr>
+        </thead>
+        <tbody style="text-align: center;">
+            {% for i in question %}
+            <tr>
+                <th scope="row">{{i.option}}</th>
+                <th scope="row">{{ i.answer_question.count }} </th>
+                <td><a href="{% url 'answer__page' i.id %}">Ответы</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="text-align:center; margin-top: 15px; color: #000">Made with 🖤 by<a style="color: #000"
+            href="https://vk.com/v.chap"> Valery Parkhomenko</a></div>
+</body>
+
+</html>
