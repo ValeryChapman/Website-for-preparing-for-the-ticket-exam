@@ -12,5 +12,5 @@ The site is designed to prepare for the ticket exam. In the admin panel, you nee
 
 ## How to run?
 In order to run this project you need:
-1) Installation `requarements.txt` file with the `pip install -r requarements.txt` command
+1) Installation `requirements.txt` file with the `pip install -r requirements.txt` command
 2) Run `Tickets` with the `python manage.py runserver` command
