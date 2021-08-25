@@ -2,17 +2,25 @@ from django.db import models
 
 
 class Question(models.Model):
-    option = models.IntegerField("Номер варианта", blank=True, null=False)
-    banner = models.ImageField("Фотография", blank=True, null=True)
-
-
-class Answer(models.Model):
-    user = models.CharField("Автор ответа", blank=True,
-                            null=True, max_length=50)
-    description = models.TextField(
-        "Текст ответа", blank=True, null=True, max_length=1000000)
-    answer_question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, null=False, related_name='answer_question')
+    option = models.IntegerField("Номер варианта", unique=True)
+    banner = models.ImageField("Фотография")
 
     def __str__(self):
-        return self.description
+        return f'Вариант #{self.option}'
+
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+        
+        
+class Answer(models.Model):
+    user = models.CharField("Автор ответа", max_length=50)
+    text = models.TextField("Текст ответа", max_length=1000000, blank=True)
+    answer_question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answer_question')
+
+    def __str__(self):
+        return f'Ответ ({self.user} -> {self.answer_question})'
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'

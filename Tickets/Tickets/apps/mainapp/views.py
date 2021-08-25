@@ -27,8 +27,27 @@ class AnswerPageView(ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        data = self.request.POST
+        
+        # get request data
+        request_data = self.request.POST
+        
+        # check keys
+        if not (
+            check_key(self.request.POST, 'user')
+            and check_key(self.request.POST, 'text')
+        ): 
+            # redirect to main page
+            return redirect('main__page')
+        
+        # get question id
         question = Question.objects.get(id=kwargs['pk'])
+        
+        # create the model
         model = Answer.objects.create(
-            user=data['user'], description=data['description'], answer_question=question).save()
+            user=data['user'], 
+            text=data['text'], 
+            answer_question=question
+        ).save()
+        
+        # redirect to answer page
         return redirect('answer__page', question.id)
